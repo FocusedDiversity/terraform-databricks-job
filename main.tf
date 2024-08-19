@@ -1,5 +1,6 @@
-resource "databricks_job" "this" {
-  name = var.job_name
+resource "databricks_job" "job" {
+  name        = var.job_name
+  description = var.job_description
 
   new_cluster {
     spark_version = var.spark_version
@@ -24,7 +25,7 @@ resource "databricks_job" "this" {
       dynamic "depends_on" {
         for_each = length(lookup(task.value, "depends_on", [])) > 0 ? [1] : []
         content {
-          depends_on = lookup(task.value, "depends_on", [])
+          task_key = lookup(task.value, "depends_on", [])
         }
       }
     }

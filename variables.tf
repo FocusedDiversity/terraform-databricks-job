@@ -3,6 +3,11 @@ variable "job_name" {
   type        = string
 }
 
+variable "job_description" {
+  description = "The description of the Databricks job."
+  type        = string
+}
+
 variable "spark_version" {
   description = "The version of Spark to use for the job cluster."
   type        = string
