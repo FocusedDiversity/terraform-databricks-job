@@ -20,7 +20,7 @@ resource "databricks_job" "job" {
         }
       }
       max_retries               = lookup(task.value, "max_retries", 0)
-      min_retry_interval_millis = lookup(notebook_task.value, "min_retry_interval_millis", 0)
+      min_retry_interval_millis = lookup(task.value, "min_retry_interval_millis", 0)
       // Conditionally set depends_on
       dynamic "depends_on" {
         for_each = length(lookup(task.value, "depends_on", [])) > 0 ? [1] : []
