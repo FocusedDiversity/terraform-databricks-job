@@ -34,9 +34,9 @@ resource "databricks_job" "job" {
 
       # Create as many depends_on blocks as are specified
       dynamic "depends_on" {
-        for_each = length(lookup(task.value, "depends_on", [])) > 0 ? [1] : []
+        for_each = toset(task.value.depends_on["task_keys"])
         content {
-          task_key = index(task.value.depends_on["task_keys"], each.value)
+          task_key = depends_on.value
         }
       }
     }
