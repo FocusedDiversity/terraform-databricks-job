@@ -11,9 +11,11 @@ provider "databricks" {
 }
 
 module "databricks_job" {
-  source         = "github.com/FocusedDiversity/terraform-databricks-job"
+  source   = "github.com/FocusedDiversity/terraform-databricks-job"
+  provider = databricks.workspace
 
-  job_name      = "example-job"
+  name          = "example-job"
+  description   = "example-job-description"
   spark_version = "7.3.x-scala2.12"
   node_type_id  = "i3.xlarge"
   num_workers   = 2
@@ -24,24 +26,16 @@ module "databricks_job" {
       notebook_task = {
         notebook_path = "/Users/example@example.com/Notebook1"
       }
-      retries = 3
+      max_retries = 3
+      min_retry_interval_millis = 3000
     },
     {
       task_key = "task2"
-      spark_jar_task = {
-        main_class_name = "com.example.MainClass"
-        jar_uri         = "dbfs:/path/to/your/jar"
-      }
-      retries    = 2
-      depends_on = ["task1"]
-    },
-    {
-      task_key = "task3"
       python_task = {
         python_file = "dbfs:/path/to/your/script.py"
       }
-      retries    = 1
-      depends_on = ["task2"]
+      max_retries    = 1
+      depends_on = ["task1"]
     }
   ]
 }

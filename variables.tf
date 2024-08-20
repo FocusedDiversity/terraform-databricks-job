@@ -1,9 +1,9 @@
-variable "job_name" {
+variable "name" {
   description = "The name of the Databricks job."
   type        = string
 }
 
-variable "job_description" {
+variable "description" {
   description = "The description of the Databricks job."
   type        = string
 }
