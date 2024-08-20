@@ -25,17 +25,18 @@ resource "databricks_job" "job" {
       max_retries               = lookup(task.value, "max_retries", 0)
       min_retry_interval_millis = lookup(task.value, "min_retry_interval_millis", 1000)
 
-      dynamic "depends_on" {
-        for_each = length(lookup(task.value, "depends_on", [])) > 0 ? [1] : []
-        content {
-          task_key = lookup(task.value, "depends_on", [])
-        }
-      }
-
       dynamic "notebook_task" {
         for_each = length(lookup(task.value, "notebook_task", {})) > 0 ? [1] : []
         content {
           notebook_path = task.value.notebook_task["notebook_path"]
+        }
+      }
+
+      # Create as many depends_on blocks as are specified
+      dynamic "depends_on" {
+        for_each = length(lookup(task.value, "depends_on", [])) > 0 ? [1] : []
+        content {
+          task_key = lookup(task.value, "depends_on", "")
         }
       }
     }
