@@ -1,11 +1,8 @@
 terraform {
   required_providers {
     databricks = {
-      source = "databricks/databricks"
+      source  = "databricks/databricks"
+      version = ">=1.24.1"
     }
   }
-}
-
-provider "databricks" {
-  # Configuration options for the Databricks provider can be added here
 }

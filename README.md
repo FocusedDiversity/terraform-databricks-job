@@ -12,7 +12,10 @@ provider "databricks" {
 
 module "databricks_job" {
   source   = "github.com/FocusedDiversity/terraform-databricks-job"
-  provider = databricks.workspace
+  
+  provider {
+    databricks.workspace = databricks.workspace
+  }
 
   name          = "example-job"
   description   = "example-job-description"

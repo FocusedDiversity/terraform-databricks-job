@@ -1,6 +1,6 @@
 resource "databricks_job" "job" {
-  name        = var.job_name
-  description = var.job_description
+  name        = var.name
+  description = var.description
 
   new_cluster {
     spark_version = var.spark_version
