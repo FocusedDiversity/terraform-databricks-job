@@ -14,7 +14,7 @@ module "databricks_job" {
   source   = "github.com/FocusedDiversity/terraform-databricks-job"
   
   provider {
-    databricks.workspace = databricks.workspace
+    databricks = databricks.workspace
   }
 
   name          = "example-job"
