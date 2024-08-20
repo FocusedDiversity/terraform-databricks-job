@@ -2,6 +2,10 @@ resource "databricks_job" "job" {
   name        = var.name
   description = var.description
 
+  run_as {
+    service_principal_name = var.run_as_service_principal_name
+  }
+
   # Conditionally include tags
   tags = length(var.tags) > 0 ? var.tags : {}
 
