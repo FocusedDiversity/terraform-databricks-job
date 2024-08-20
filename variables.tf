@@ -53,7 +53,9 @@ variable "tasks" {
     }))
     max_retries               = optional(number)
     min_retry_interval_millis = optional(number)
-    depends_on                = optional(list(string))
+    depends_on                = optional(object({
+      task_keys = list(string)
+    }))
   }))
   default = []
 }
