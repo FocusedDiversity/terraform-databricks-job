@@ -42,6 +42,7 @@ variable "parameters" {
 variable "tags" {
   type        = map(string)
   description = "(Optional) List of tags to be propagated across all resources."
+  default     = {}
 }
 
 variable "tasks" {
