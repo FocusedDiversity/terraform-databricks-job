@@ -16,7 +16,6 @@ variable "spark_version" {
 variable "node_type_id" {
   description = "The node type for the cluster."
   type        = string
-  default     = "i3en.large"
 }
 
 variable "number_of_workers" {
@@ -26,12 +25,12 @@ variable "number_of_workers" {
 }
 
 variable "run_as_service_principal_name" {
-  description = "The Service Principal that will be used to run the task(s)."
+  description = "The Service Principal name that will be used to run the task(s)."
   type        = string
 }
 
 variable "parameters" {
-  description = "A list of parameters to be passed onto the tasks."
+  description = "A list of parameters to be passed to the tasks."
   type = list(object({
     name    = string
     default = string
