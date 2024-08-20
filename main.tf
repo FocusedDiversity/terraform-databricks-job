@@ -2,10 +2,16 @@ resource "databricks_job" "job" {
   name        = var.name
   description = var.description
 
-  new_cluster {
-    spark_version = var.spark_version
-    node_type_id  = var.node_type_id
-    num_workers   = var.number_of_workers
+  # Conditionally include tags
+  tags = length(var.tags) > 0 ? var.tags : {}
+
+  # Create as many parameters as are specified
+  dynamic "parameter" {
+    for_each = var.parameters
+    content {
+      name    = parameter.value["name"]
+      default = lookup(parameter.value, "default", "")
+    }
   }
 
   dynamic "task" {
@@ -13,21 +19,26 @@ resource "databricks_job" "job" {
     content {
       task_key = task.value["task_key"]
 
-      dynamic "notebook_task" {
-        for_each = length(lookup(task.value, "notebook_task", {})) > 0 ? [1] : []
-        content {
-          notebook_path = task.value.notebook_task["notebook_path"]
-        }
-      }
+      job_cluster_key           = lookup(task.value, "job_cluster_key", null)
       max_retries               = lookup(task.value, "max_retries", 0)
       min_retry_interval_millis = lookup(task.value, "min_retry_interval_millis", 0)
-      // Conditionally set depends_on
+
       dynamic "depends_on" {
         for_each = length(lookup(task.value, "depends_on", [])) > 0 ? [1] : []
         content {
           task_key = lookup(task.value, "depends_on", [])
         }
       }
+
+      dynamic "notebook_task" {
+        for_each = length(lookup(task.value, "notebook_task", {})) > 0 ? [1] : []
+        content {
+          notebook_path = task.value.notebook_task["notebook_path"]
+        }
+      }
+
+
+
     }
   }
 }

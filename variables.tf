@@ -25,6 +25,25 @@ variable "number_of_workers" {
   default     = 2
 }
 
+variable "run_as_service_principal_name" {
+  description = "The Service Principal that will be used to run the task(s)."
+  type        = string
+}
+
+variable "parameters" {
+  description = "A list of parameters to be passed onto the tasks."
+  type = list(object({
+    name    = string
+    default = string
+  }))
+  default = []
+}
+
+variable "tags" {
+  type        = map(string)
+  description = "(Optional) List of tags to be propagated across all resources."
+}
+
 variable "tasks" {
   description = "A list of tasks to run as part of the job."
   type = list(object({
