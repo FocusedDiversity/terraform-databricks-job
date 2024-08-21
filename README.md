@@ -3,14 +3,14 @@
 A Terraform module to create and manage Databricks jobs.
 
 ## Features
-[X] - Notebook Tasks
-[X] - Task dependencies
-[X] - Serverless Job Clusters
+- [X] Notebook Tasks
+- [X] Task dependencies
+- [X] Serverless Job Clusters
 
 ## Planned Functionality
-[] - Task Scheduling
-[] - Email Notifications Notifications
-[] - Webhook Notifications
+- [] Task Scheduling
+- [] Email Notifications Notifications
+- [] Webhook Notifications
 
 ## Usage
 
