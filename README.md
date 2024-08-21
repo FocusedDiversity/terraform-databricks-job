@@ -32,7 +32,7 @@ data "databricks_node_type" "smallest" {
 }
 
 module "databricks_job_example" {
-  source = "github.com/FocusedDiversity/terraform-databricks-job?ref=0.1.0"
+  source = "github.com/FocusedDiversity/terraform-databricks-job?ref=v0.1.0"
   providers = {
     databricks = databricks.workspace
   }
