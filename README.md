@@ -2,6 +2,16 @@
 
 A Terraform module to create and manage Databricks jobs.
 
+## Features
+[X] - Notebook Tasks
+[X] - Task dependencies
+[X] - Serverless Job Clusters
+
+## Planned Functionality
+[] - Task Scheduling
+[] - Email Notifications Notifications
+[] - Webhook Notifications
+
 ## Usage
 
 ```hcl
@@ -73,33 +83,5 @@ resource "databricks_notebook" "example" {
 }
 ```
 
-## Authentication to Databricks Workspace
-To authenticate to a Databricks workspace, you need to provide the following variables:
-
-**Databricks Host**: The URL of your Databricks workspace (e.g., https://<databricks-instance>.cloud.databricks.com).
-
-**Databricks Token**: A personal access token generated from your Databricks account.
-
-```hcl
-variable "databricks_host" {
-  description = "The URL of the Databricks workspace."
-  type        = string
-}
-
-variable "databricks_token" {
-  description = "The personal access token for Databricks."
-  type        = string
-  sensitive   = true
-}
-```
-
-Alternatively, you can set these values using environment variables:
-
-```sh
-export DATABRICKS_HOST=https://<databricks-instance>.cloud.databricks.com
-export DATABRICKS_TOKEN=<your-access-token>
-```
-Terraform will automatically use these environment variables for authentication if you don’t explicitly pass them as variables in your configuration.
-
 ## License
-This project is licensed under the MIT License.
+MIT Licensed. See (LICENSE](https://github.com/FocusedDiversity/terraform-databricks-job/blob/main/LICENSE) for full details.
