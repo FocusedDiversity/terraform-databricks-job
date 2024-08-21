@@ -67,7 +67,37 @@ module "databricks_job_example" {
     max_retries               = 2
     min_retry_interval_millis = 1800000
 
-    depends_on = []
+    depends_on = {
+      task_keys = []
+    }
+  },{
+    task_key = "example2"
+
+    notebook_task = {
+      notebook_path = databricks_notebook.example.path
+    }
+
+    # Retry Config
+    max_retries               = 2
+    min_retry_interval_millis = 1800000
+
+    depends_on = {
+      task_keys = ["example"]
+    }
+  },{
+    task_key = "example3"
+
+    notebook_task = {
+      notebook_path = databricks_notebook.example.path
+    }
+
+    # Retry Config
+    max_retries               = 2
+    min_retry_interval_millis = 1800000
+
+    depends_on = {
+      task_keys = ["example", "example2"]
+    }
   }]
 
   depends_on = [databricks_access_control_rule_set.example]
